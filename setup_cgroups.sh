@@ -14,6 +14,8 @@ CREATE TABLE limits (
 	user varchar(40),
 	host varchar(254),
 	cpu double,
+	reads integer,
+	writes integer,
 	mem integer
 );
 ' $db_name
