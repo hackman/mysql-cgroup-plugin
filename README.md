@@ -4,7 +4,10 @@ This is a MariaDB audit_cgroup plugin.
 
 It will check if /sys/fs/cgroup/{cpu,memory,blkio}/mysql cgroups exist and if so, 
 it will create new cgroups per-user under them. 
-This allows the administrator to control the CPU and Blkio utilization per-user.
+
+
+This will allow administrators to control the CPU and Blkio utilization per-user
+by imposing proper limits for all of their connections.
 
 # Build
 The current version is prepared to be build against MariaDB.
