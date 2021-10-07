@@ -39,10 +39,44 @@ Next you need to copy the audit_cgroup.so to the plugin directory of your mysql 
 
 Finally, you need to load the plugin:
 ```
-INSTALL PLUGIN audit_cgroup SONAME 'audit_cgroup.so';
+MariaDB [(none)]> INSTALL PLUGIN audit_cgroup SONAME 'audit_cgroup.so';
 ```
 
 Verigy that the plugin is loaded and enabled:
 ```
-SHOW VARIABLES LIKE 'audit_cgroup_enabled';
+MariaDB [(none)]> SHOW VARIABLES LIKE 'audit_cgroup_enabled';
++----------------------+-------+
+| Variable_name        | Value |
++----------------------+-------+
+| audit_cgroup_enabled | ON    |
++----------------------+-------+
+1 row in set (0.003 sec)
+
 ```
+
+# Maintance
+You can temporary disable the plugin:
+```
+MariaDB [(none)]> set global audit_cgroup_enabled=OFF;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [(none)]> show variables like 'audit_cgroup_enabled';
++----------------------+-------+
+| Variable_name        | Value |
++----------------------+-------+
+| audit_cgroup_enabled | OFF   |
++----------------------+-------+
+1 row in set (0.001 sec)
+```
+and then reenable it:
+```
+MariaDB [(none)]> set global audit_cgroup_enabled=ON;
+Query OK, 0 rows affected (0.000 sec)
+
+```
+
+Removing the plugin completely:
+```
+UNINSTALL SONAME 'audit_cgroup.so';
+```
+
