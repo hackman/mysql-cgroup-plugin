@@ -1,13 +1,17 @@
 # What is this?
 
-This is a MariaDB audit_cgroup plugin. 
+This is a MariaDB plugin that allows to limit all connections of a user to certain CPU and/or I/O BW.
+
+To achieve that, the plugin is built as an audit plugin.
 
 It will check if /sys/fs/cgroup/{cpu,memory,blkio}/mysql cgroups exist and if so, 
 it will create new cgroups per-user under them. 
 
 
-This will allow administrators to control the CPU and Blkio utilization per-user
+This will allow administrators to control the CPU and I/O utilization per-user
 by imposing proper limits for all of their connections.
+
+In the future it may also include network BW limits.
 
 # Build
 The current version is prepared to be build against MariaDB.
@@ -20,8 +24,8 @@ make
 
 # Setup
 
-After install of MySQL/MariaDB you need to run the setup_cgroups.sh script, that will 
-create the cgroup_limits database and the limits table inside of it.
+After install of MySQL/MariaDB you need to run the setup_cgroups.sh script.
+It will create the cgroup_limits database and the limits table inside of it.
 
 You should then move the mysql_init_cgroups.sh to /usr/local/sbin.
 
@@ -42,7 +46,7 @@ Finally, you need to load the plugin:
 MariaDB [(none)]> INSTALL PLUGIN audit_cgroup SONAME 'audit_cgroup.so';
 ```
 
-Verigy that the plugin is loaded and enabled:
+Verify that the plugin is loaded and enabled:
 ```
 MariaDB [(none)]> SHOW VARIABLES LIKE 'audit_cgroup_enabled';
 +----------------------+-------+
